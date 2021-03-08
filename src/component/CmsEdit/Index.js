@@ -5,13 +5,16 @@ import Dexie from 'dexie';
 import LibCmsEdit from '../../libs/LibCmsEdit';
 import LibCms from '../../libs/LibCms';
 import LibDexie from '../../libs/LibDexie';
+import LibPagenate from '../../libs/LibPagenate';
+import PagingBox from '../Layouts/PagingBox';
 
 //
 class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: '', data_org: '',
+      data: '', data_org: '', page: 1,
+      pagingDisplay: 0,
       category_items: [], page_items:[] ,
     }
     this.db = null
@@ -54,12 +57,16 @@ class Index extends Component {
     var posts = LibDexie.get_reverse_items(items)
     var category_items = await this.db.category.toArray()
     posts = LibCms.get_post_items(posts, category_items)
+    LibPagenate.init()
+    posts = LibPagenate.getOnepageItems(posts, 0 , 10)
+    var display = LibPagenate.is_paging_display(posts.length)
     var page_items = await this.db.pages.toArray()
     this.setState({
       data: posts ,category_items: category_items,
-      page_items: page_items,
+      page_items: page_items, pagingDisplay: display,
     })
-console.log(posts)
+//console.log(posts)
+//console.log(display, posts.length)
   }
   tabRow(){
     if(this.state.data instanceof Array){
@@ -69,7 +76,27 @@ console.log(posts)
       })
     }
   }
+  async parentMethod(page){
+    console.log("#parentMethod.p=" + page ) 
+    var items = await this.db.posts.toArray()
+    var posts = LibDexie.get_reverse_items(items)
+    var category_items = await this.db.category.toArray()
+    posts = LibCms.get_post_items(posts, category_items)     
+    LibPagenate.init()
+    var pageInfo=LibPagenate.get_page_start(page)
+    var display = LibPagenate.is_next_display(page, posts.length )
+//console.log(pageInfo)
+    posts = LibPagenate.getOnepageItems(posts, pageInfo.start , pageInfo.end )
+//console.log(posts)
+    this.setState({
+      page: page,
+      data: posts ,
+      pagingDisplay: display,
+    })
+  }
   render(){
+    var paginateDisp = this.state.pagingDisplay
+//console.log(paginateDisp)
     return (
     <div className="container">
       <h3>Posts</h3>
@@ -98,6 +125,11 @@ console.log(posts)
         <tbody>
           {this.tabRow()}
         </tbody>
+        <hr />
+        <div className="paging_box_wrap mt-3">
+          <PagingBox parent_func={(id) => this.parentMethod(id)}
+            page={this.state.page} paginateDisp={paginateDisp} />
+        </div>        
       </table>
     </div>
     )
