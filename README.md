@@ -6,12 +6,12 @@
 
  date    : 2021/03/06 
 
- update  :
+ update  : 2021/03/08
 
 ***
 ### Summary
 
-Ract + IndexedDB, cms edit sample
+Ract + IndexedDB , cms edit sample
 ***
 ### start server
 * Start :
@@ -22,6 +22,15 @@ yarn start
 
 yarn build
 
+***
+###  React / json file edit URL
+
+https://kuc-arc-f.github.io/react-idx-6edit2/
+
+***
+### Next.js / SSG sample , json file read
+
+https://github.com/kuc-arc-f/jamstack-ex4
 
 ***
 ### Blog :
