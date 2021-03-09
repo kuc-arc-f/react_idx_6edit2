@@ -38,7 +38,12 @@ class Edit extends Component {
     var elemDate = document.getElementById('category_id');
     elemDate.value= item.category_id                        
   }
-  update_item(){
+  previews_item(){
+//console.log(this.id)
+    this.proc_update()
+    this.props.history.push("/cms_edit_show/" + String(this.id) );
+  }
+  proc_update(){
     var elem = document.getElementById('category_id');
     var category_id = elem.value                      
     this.db.posts.update(parseInt( this.id ) , {
@@ -46,6 +51,9 @@ class Edit extends Component {
       content: this.state.content,
       category_id: category_id,
     });
+  }
+  update_item(){
+    this.proc_update()
     this.props.history.push("/cms_edit");
 //console.log( task )
   }    
@@ -69,16 +77,18 @@ class Edit extends Component {
     var category = this.state.category_items 
     return (
       <div>
-        <hr />
+        <hr className="mt-2 mb-0" />
         <label>Category :</label>
-        <select id="category_id" name="category_id" className="form-control">
-          <option value="0">Select please</option>
-          {category.map((item, index) => {
-// console.log(item)
-            return(<option key={index}
-              value={item.save_id}>{item.name}</option>)            
-          })}          
-        </select>          
+        <div className="col-sm-8">
+          <select id="category_id" name="category_id" className="form-control">
+            <option value="0">Select please</option>
+            {category.map((item, index) => {
+  // console.log(item)
+              return(<option key={index}
+                value={item.save_id}>{item.name}</option>)            
+            })}          
+          </select>          
+        </div>
       </div>
     )
   }   
@@ -87,9 +97,18 @@ class Edit extends Component {
 //console.log(category)
     return (
     <div className="container">
-      <Link to="/cms_edit" className="btn btn-outline-primary mt-2">Back</Link>
-      <hr className="mt-2 mb-2" />            
-      <h1>Posts - Edit</h1>
+      <div class="row">
+        <div class="col-sm-6">
+        <Link to="/cms_edit" className="btn btn-outline-primary mt-2">Back
+        </Link>
+        </div>
+        <div class="col-sm-6">
+          <button className="btn btn-outline-primary mt-2"
+           onClick={this.previews_item.bind(this)}>Preview</button>
+        </div>
+      </div>
+      <hr className="mt-2 mb-0" />            
+      <h3>Posts - Edit</h3>
       {this.tabCategory()}
       <div className="form-group">
           <label>Title</label>

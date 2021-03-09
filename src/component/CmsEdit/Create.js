@@ -56,16 +56,18 @@ console.log( items )
 //console.log(category)
     return (
       <div>
-        <hr />
+        <hr className="mt-2 mb-2" />
         <label>Category :</label>
-        <select id="category_id" name="category_id" className="form-control">
-          <option value="0">Select please</option>
-          {category.map((item, index) => {
-// console.log(item)
-            return(<option key={index}
-              value={item.save_id}>{item.name}</option>)            
-          })}          
-        </select>          
+        <div className="col-sm-8">
+          <select id="category_id" name="category_id" className="form-control">
+            <option value="0">Select please</option>
+            {category.map((item, index) => {
+  // console.log(item)
+              return(<option key={index}
+                value={item.save_id}>{item.name}</option>)            
+            })}          
+          </select>          
+        </div>
       </div>
     )
   }  
@@ -74,7 +76,7 @@ console.log( items )
     <div className="container">
       <Link to="/cms_edit" className="btn btn-outline-primary mt-2">Back</Link>
       <hr className="mt-2 mb-2" />
-      <h1 className="mt-2">CmsEdit - Create</h1>
+      <h3 className="mt-2">Posts - Create</h3>
       {this.tabCategory()}
       <hr />
       <div className="form-group">
