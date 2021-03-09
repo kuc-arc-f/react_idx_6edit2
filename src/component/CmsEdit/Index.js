@@ -94,9 +94,24 @@ class Index extends Component {
       pagingDisplay: display,
     })
   }
+  async handleChangeSelect(e){
+    var id = e.target.value
+// console.log(id)
+    var items = await this.db.posts.toArray()
+    items = LibCms.get_category_data(items, id)
+    items = LibDexie.get_reverse_items(items)
+    var category_items = await this.db.category.toArray()
+    items = LibCms.get_post_items(items, category_items)  
+// console.log(items)
+    this.setState({
+      data: items ,
+      pagingDisplay: 0,
+    })
+  }  
   render(){
     var paginateDisp = this.state.pagingDisplay
-//console.log(paginateDisp)
+    var category_items = this.state.category_items
+//console.log(this.state.category_items)
     return (
     <div className="container">
       <h3>Posts</h3>
@@ -114,8 +129,26 @@ class Index extends Component {
               className="btn btn-sm btn-outline-primary ml-2">Import
             </Link>
         </div>
-      </div><br />
-      <table className="table table-hover">
+      </div>
+      <hr className="mt-2 mb-2"/>
+      <div className="row">
+        <div className="col-sm-6"></div>
+        <div className="col-sm-6">
+          <label>Category :</label>
+          <div >
+            <select id="category_id" name="category_id" className="form-control"
+            onChange={this.handleChangeSelect.bind(this)}>
+              <option value="0">Select please</option>
+              {category_items.map((item, index) => {
+    // console.log(item)
+                return(<option key={index}
+                  value={item.save_id}>{item.name}</option>)            
+              })}          
+            </select>          
+          </div>      
+        </div>
+      </div>
+      <table className="table table-hover mt-2">
         <thead>
         <tr>
           <th>Title</th>

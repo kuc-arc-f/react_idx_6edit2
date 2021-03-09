@@ -40,14 +40,14 @@ export default {
         return ret
     },    
     get_category_data: function(items, id){
-        var ret = [];
-        items.forEach(function(item){
-//console.log(item.category.save_id );
-            if(item.category.save_id === String(id) ){
-                ret.push(item)
-            }
-        });
-        return ret
+      var ret = [];
+      items.forEach(function(item){
+//console.log(item);
+        if(item.category_id === String(id) ){
+          ret.push(item)
+        }
+      });
+      return ret
     },
   get_post_items : function(posts , categories){
     try{
