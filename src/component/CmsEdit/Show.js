@@ -49,18 +49,26 @@ class Show extends Component {
 //        console.log( this.state )
   }        
   render(){
-console.log(this.state.category)
+//console.log(this.id)
     return (
     <div className="container">
-        <Link to="/cms_edit" className="btn btn-outline-primary mt-2">Back</Link>
-        <hr className="mt-2 mb-2" />            
-        <h1>{this.state.title}</h1>
-        Date : {this.state.created_at}<br />
-        Category : {this.state.category.name}
-        <hr />
-        <div id="post_item" 
-        dangerouslySetInnerHTML={{ __html: this.state.content }}></div>
-
+      <div class="row">
+        <div class="col-sm-6">
+          <Link to="/cms_edit" className="btn btn-outline-primary mt-2">Back
+          </Link>
+        </div>
+        <div class="col-sm-6">
+          <Link to={`/cms_edit_edit/${String(this.id)}`} className="btn btn-outline-primary mt-2">Edit
+          </Link>
+        </div>
+      </div>
+      <hr className="mt-2 mb-2" />            
+      <h1>{this.state.title}</h1>
+      Date : {this.state.created_at}<br />
+      Category : {this.state.category.name}
+      <hr />
+      <div id="post_item" 
+      dangerouslySetInnerHTML={{ __html: this.state.content }}></div>
     </div>
     )
   }
