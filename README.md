@@ -6,7 +6,7 @@
 
  date    : 2021/03/06 
 
- update  : 2021/03/09
+ update  : 2021/03/11
 
 ***
 ### Summary
@@ -35,6 +35,9 @@ https://github.com/kuc-arc-f/jamstack-ex4
 ***
 ### Blog :
 
+* SSGコンパイル時に。jsonファイルを読み込んで 無料サイト公開する
+
+https://note.com/knaka0209/n/n859ad62e8173
 
 ***
 
