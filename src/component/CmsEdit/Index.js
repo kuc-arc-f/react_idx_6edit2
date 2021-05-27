@@ -26,6 +26,15 @@ class Index extends Component {
       this.db.version(config.DB_VERSION).stores( config.DB_STORE );
       this.get_items()        
   }
+  async handleClickDelete(){
+    console.log("#-handleClickDelete")
+    if (window.confirm("Delete OK? ")) {
+      await this.db.pages.clear()
+      await this.db.posts.clear()
+      await this.db.category.clear()
+      this.props.history.push("/");
+    }    
+  }
   handleClickExport(){
       console.log("#-handleClickExport")
       var config = LibCmsEdit.get_const()
@@ -128,6 +137,9 @@ class Index extends Component {
             <Link to="/cms_edit_import" target="_blank"
               className="btn btn-sm btn-outline-primary ml-2">Import
             </Link>
+            <button className="ml-2 btn btn-sm btn-outline-danger" 
+            onClick={this.handleClickDelete.bind(this)}>Delete
+            </button>
         </div>
       </div>
       <hr className="mt-2 mb-2"/>
