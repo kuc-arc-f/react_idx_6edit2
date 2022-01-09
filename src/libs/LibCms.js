@@ -6,14 +6,16 @@ export default {
         }
     },
     get_show_item: function(items, id){
-        var ret = null;
-        items.forEach(function(item){
+      let ret = null;
+      items.forEach(function(item){
 //console.log(item.show_id );
-            if(item.show_id === String(id) ){
-                ret = item
-            }
-        });
-        return ret
+        if(item.show_id === String(id) ){
+          let content = item.content;
+          item.content = content.replace(/:::nextpage/gi, `<hr class="pdf_next_page" />\r\n`);
+          ret = item
+        }
+      });
+      return ret
     }, 
     get_page_item: function(items, id){
         var ret = null;

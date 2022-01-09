@@ -1,12 +1,12 @@
 ﻿# react_idx_6edit2
 
- Version: 0.9.1
+ Version: 0.9.2
 
  Author  : Kouji Nakashima / kuc-arc-f.com
 
  date    : 2021/03/06 
 
- update  : 2021/05/27 
+ update  : 2022/01/09
 
 ***
 ### Summary

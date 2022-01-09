@@ -31,7 +31,9 @@ class Show extends Component {
   }
   async get_item(id){
     var item = await this.db.posts.get(id);
-    item.content = marked(item.content)
+    let content = item.content;
+    item.content = content.replace(/:::nextpage/gi, `<hr class="pdf_next_page" />\r\n`);
+    item.content = marked(item.content);
     item.created_at = LibCommon.formatDate(item.created_at, 'YYYY-MM-DD hh:mm')
     var category_items = await this.db.category.toArray();
     var category= LibBook.get_category_item(item.category_id , category_items)
@@ -52,12 +54,12 @@ class Show extends Component {
 //console.log(this.id)
     return (
     <div className="container">
-      <div class="row">
-        <div class="col-sm-6">
+      <div className="row">
+        <div className="col-sm-6">
           <Link to="/cms_edit" className="btn btn-outline-primary mt-2">Back
           </Link>
         </div>
-        <div class="col-sm-6">
+        <div className="col-sm-6">
           <Link to={`/cms_edit_edit/${String(this.id)}`} className="btn btn-outline-primary mt-2">Edit
           </Link>
         </div>
@@ -68,7 +70,7 @@ class Show extends Component {
       Category : {this.state.category.name}
       <hr />
       <div id="post_item" 
-      dangerouslySetInnerHTML={{ __html: this.state.content }}></div>
+        dangerouslySetInnerHTML={{ __html: this.state.content }}></div>
     </div>
     )
   }

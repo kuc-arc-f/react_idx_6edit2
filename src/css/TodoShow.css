@@ -5,6 +5,22 @@ div#post_item > p > img{
 }
 div#post_item > hr {
   height: 1px;
+  /*
   background-color: #000;
   border: none;
+  */
+}
+div#post_item img{
+  max-width : 100%;
+  height : auto;
+}
+.pdf_next_page {
+  page-break-before: always;
+  background-color: green;
+  border: none;        
+}
+@media print {
+  .hidden_print{
+    display: none;
+  }
 }
